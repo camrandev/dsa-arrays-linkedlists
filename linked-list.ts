@@ -145,7 +145,45 @@ class LinkedList<T> {
 
   /** insertAt(idx, val): add node w/val before idx. */
 
-  insertAt(idx, val) {}
+  insertAt(idx: number, val: T): void {
+    if (idx < 0 || idx > this.length) {
+      throw new Error("index out of bounds")
+    }
+
+    if (this.length === 0) {
+      this.head = new LLNode(val);
+      this.tail = this.head;
+      this.length++
+      return;
+    }
+
+    if (this.length === 1) {
+      this.head = new LLNode(val);
+      this.head.next = this.tail;
+      this.length++
+      return;
+    }
+
+    const prevNode = this.getNodeAt(idx - 1);
+    const newNode = new LLNode(val);
+    newNode.next = prevNode.next;
+    prevNode.next = newNode;
+    this.length++
+  }
+
+  getNodeAt(idx: number) : LLNode<T> {
+    if (idx < 0 || idx >= this.length) {
+      throw new Error("index out of bounds")
+    }
+
+    let cur = this.head!;
+    let curIndex = 0;
+    while (curIndex < idx) {
+      cur = cur.next!;
+    }
+
+    return cur;
+  }
 
   /** removeAt(idx): return & remove item at idx, */
 
