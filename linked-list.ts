@@ -155,7 +155,6 @@ class LinkedList<T> {
     }
 
     curr!.val = val;
-
   }
 
   /** insertAt(idx, val): add node w/val before idx. */
@@ -198,17 +197,55 @@ class LinkedList<T> {
     this.length++;
   }
 
-
-
   /** removeAt(idx): return & remove item at idx, */
 
-  removeAt(idx : number) { }
+  removeAt(idx: number) {
+    if (idx < 0 || idx >= this.length) {
+      throw new Error("index out of bounds");
+    }
+
+    if (this.length === 1) {
+      const returnVal = this.head!.val;
+      this.head = null;
+      this.tail = null;
+      this.length--;
+      return returnVal;
+    }
+
+    if (idx === 0) {
+      const returnVal = this.head!.val;
+      this.head = this.head!.next;
+      this.length--;
+      return returnVal;
+    }
+
+    const nodeBeforeTargetNode = this.getNodeAt(idx - 1);
+    const targetNode = nodeBeforeTargetNode.next;
+    const valToReturn = targetNode!.val;
+
+    nodeBeforeTargetNode.next = targetNode!.next;
+    this.length--;
+
+    return valToReturn;
+
+    //track current
+  }
 
   /** average(): return an average of all values in the list */
 
-  average() { }
+  average() {
+    const ll = (this as LinkedList<number>);
+    if (ll.length === 0) return 0
 
+    let sum = 0;
+    let curr = ll.head;
+    while (curr) {
+      sum = sum + curr.val;
+      curr = curr.next
+    }
 
+    return sum/ll.length
+  }
 }
 
 module.exports = LinkedList;
