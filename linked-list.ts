@@ -20,9 +20,24 @@ class LinkedList<T> {
     for (let val of vals) this.push(val);
   }
 
+  getNodeAt(idx: number): LLNode<T> {
+    if (idx < 0 || idx >= this.length) {
+      throw new Error("index out of bounds");
+    }
+
+    let cur = this.head!;
+    let curIndex = 0;
+    while (curIndex < idx) {
+      cur = cur.next!;
+      curIndex++;
+    }
+
+    return cur;
+  }
+
   /** push(val): add new value to end of list. */
 
-  push(val: T):void {
+  push(val: T): void {
     const newLLNode = new LLNode(val);
 
     if (this.tail !== null) {
@@ -41,7 +56,7 @@ class LinkedList<T> {
 
   /** unshift(val): add new value to start of list. */
 
-  unshift(val:T):void {
+  unshift(val: T): void {
     const newLLNode = new LLNode(val);
     newLLNode.next = this.head;
     this.head = newLLNode;
@@ -128,7 +143,7 @@ class LinkedList<T> {
 
   /** setAt(idx, val): set val at idx to val */
 
-  setAt(idx: number, val: T):void {
+  setAt(idx: number, val: T): void {
     if (idx >= this.length) throw new Error("invalid index");
     //count to track location by index
     let count = 0;
@@ -139,7 +154,7 @@ class LinkedList<T> {
       count++;
     }
 
-    curr!.val = val
+    curr!.val = val;
 
   }
 
@@ -147,51 +162,53 @@ class LinkedList<T> {
 
   insertAt(idx: number, val: T): void {
     if (idx < 0 || idx > this.length) {
-      throw new Error("index out of bounds")
+      throw new Error("index out of bounds");
     }
 
     if (this.length === 0) {
       this.head = new LLNode(val);
       this.tail = this.head;
-      this.length++
+      this.length++;
       return;
     }
 
     if (this.length === 1) {
       this.head = new LLNode(val);
       this.head.next = this.tail;
-      this.length++
+      this.length++;
+      return;
+    }
+
+    if (idx === 0) {
+      const newNode = new LLNode(val);
+      newNode.next = this.head;
+      this.head = newNode;
+      this.length++;
       return;
     }
 
     const prevNode = this.getNodeAt(idx - 1);
     const newNode = new LLNode(val);
-    newNode.next = prevNode.next;
+    if (idx !== this.length) {
+      newNode.next = prevNode.next;
+    } else {
+      this.tail = newNode;
+    }
     prevNode.next = newNode;
-    this.length++
+    this.length++;
   }
 
-  getNodeAt(idx: number) : LLNode<T> {
-    if (idx < 0 || idx >= this.length) {
-      throw new Error("index out of bounds")
-    }
 
-    let cur = this.head!;
-    let curIndex = 0;
-    while (curIndex < idx) {
-      cur = cur.next!;
-    }
-
-    return cur;
-  }
 
   /** removeAt(idx): return & remove item at idx, */
 
-  removeAt(idx) {}
+  removeAt(idx : number) { }
 
   /** average(): return an average of all values in the list */
 
-  average() {}
+  average() { }
+
+
 }
 
 module.exports = LinkedList;

@@ -15,6 +15,18 @@ class LinkedList {
         for (let val of vals)
             this.push(val);
     }
+    getNodeAt(idx) {
+        if (idx < 0 || idx >= this.length) {
+            throw new Error("index out of bounds");
+        }
+        let cur = this.head;
+        let curIndex = 0;
+        while (curIndex < idx) {
+            cur = cur.next;
+            curIndex++;
+        }
+        return cur;
+    }
     /** push(val): add new value to end of list. */
     push(val) {
         const newLLNode = new LLNode(val);
@@ -124,22 +136,23 @@ class LinkedList {
             this.length++;
             return;
         }
+        if (idx === 0) {
+            const newNode = new LLNode(val);
+            newNode.next = this.head;
+            this.head = newNode;
+            this.length++;
+            return;
+        }
         const prevNode = this.getNodeAt(idx - 1);
         const newNode = new LLNode(val);
-        newNode.next = prevNode.next;
+        if (idx !== this.length) {
+            newNode.next = prevNode.next;
+        }
+        else {
+            this.tail = newNode;
+        }
         prevNode.next = newNode;
         this.length++;
-    }
-    getNodeAt(idx) {
-        if (idx < 0 || idx >= this.length) {
-            throw new Error("index out of bounds");
-        }
-        let cur = this.head;
-        let curIndex = 0;
-        while (curIndex < idx) {
-            cur = cur.next;
-        }
-        return cur;
     }
     /** removeAt(idx): return & remove item at idx, */
     removeAt(idx) { }
