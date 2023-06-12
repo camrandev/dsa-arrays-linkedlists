@@ -23,19 +23,66 @@ class LinkedList {
   /** push(val): add new value to end of list. */
 
   push(val) {
+    const newNode = new Node(val);
 
+    if (this.tail !== null) {
+      this.tail.next = newNode;
+    }
+
+    this.tail = newNode;
+
+    if (this.head === null) {
+      this.head = newNode;
+    }
+
+    this.length++;
+    // console.log("length: ", this.length);
   }
 
   /** unshift(val): add new value to start of list. */
 
   unshift(val) {
+    const newNode = new Node(val);
+    newNode.next = this.head;
+    this.head = newNode;
 
+    if (this.tail === null) {
+      this.tail = newNode;
+    }
+
+    this.length++;
   }
 
   /** pop(): return & remove last item. */
 
   pop() {
+    if (this.tail === null) {
+      throw new Error("Cannot pop empty list");
+    }
 
+    if (this.length === 1) {
+      const returnVal = this.tail.val;
+
+      this.head = null;
+      this.tail = null;
+      this.length--;
+      return returnVal;
+    }
+
+    let cur = this.head;
+    let prev = null;
+    while (cur.next !== null) {
+      prev = cur;
+      cur = cur.next;
+    }
+
+    const tailVal = this.tail.val;
+    this.tail = prev;
+    this.tail.next = null;
+
+    this.length--;
+
+    return tailVal;
   }
 
   /** shift(): return & remove first item. */
@@ -71,7 +118,7 @@ class LinkedList {
   /** average(): return an average of all values in the list */
 
   average() {
-    
+
   }
 }
 
