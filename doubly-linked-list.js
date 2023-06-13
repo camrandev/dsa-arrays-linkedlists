@@ -1,7 +1,11 @@
 /** Node: node for a doubly linked list. */
 
 class Node {
-  
+  next = null;
+  prev = null;
+  constructor(val) {
+    this.val = val;
+  }
 }
 
 class DoublyLinkedList {
@@ -16,62 +20,68 @@ class DoublyLinkedList {
   /** get(idx) returns a node at the given index */
 
   _get(idx) {
-    
+    let counter = 0;
+    let curr = this.head;
+
+    while (counter != idx) {
+      counter++;
+      curr = curr.next;
+    }
+
+    return curr;
   }
 
   /** push(val): add new value to end of list. */
 
   push(val) {
-    
+    const newNode = new Node(val);
+
+    //if list is currently empty
+    if (this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+      this.length++;
+      return;
+    }
+
+    this.tail.next = newNode;
+    newNode.prev = this.tail;
+    this.tail = newNode;
+    this.length++;
+    return;
   }
 
   /** unshift(val): add new value to start of list. */
 
-  unshift(val) {
-    
-  }
+  unshift(val) {}
 
   /** pop(): remove last item & return its value */
 
-  pop() {
-
-  }
+  pop() {}
 
   /** shift(): remove first item & return its value */
 
-  shift() {
-    
-  }
+  shift() {}
 
   /** getAt(idx): get val at idx.*/
 
-  getAt(idx) {
-   
-  }
+  getAt(idx) {}
 
   /** setAt(idx, val): set val at idx to val */
 
-  setAt(idx, val) {
-   
-  }
+  setAt(idx, val) {}
 
   /** insertAt(idx, val): add node w/val before idx. */
 
-  insertAt(idx, val) {
-   
-  }
+  insertAt(idx, val) {}
 
   /** removeAt(idx): return & remove item at idx, */
 
-  removeAt(idx) {
-   
-  }
+  removeAt(idx) {}
 
   /** return average (mean) of list values. */
 
-  average() {
-   
-  }
+  average() {}
 }
 
 module.exports = DoublyLinkedList;
