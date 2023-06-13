@@ -53,11 +53,35 @@ class DoublyLinkedList {
 
   /** unshift(val): add new value to start of list. */
 
-  unshift(val) {}
+  unshift(val) {
+    const newNode = new Node(val);
+
+    //handle case of currently empty list
+    if (this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+      this.length++;
+      return;
+    }
+
+    newNode.next = this.head;
+
+    this.head.prev = newNode;
+
+    this.head = newNode;
+    this.length++;
+  }
 
   /** pop(): remove last item & return its value */
 
-  pop() {}
+  pop() {
+    //pluck the value of the current tail
+    let val;
+    //set the new tail current tail.prev
+    //decrement the list
+
+    //return the value
+  }
 
   /** shift(): remove first item & return its value */
 
