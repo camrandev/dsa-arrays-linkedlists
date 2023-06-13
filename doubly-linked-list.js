@@ -92,7 +92,26 @@ class DoublyLinkedList {
 
   /** shift(): remove first item & return its value */
 
-  shift() {}
+  shift() {
+    if (this.length === 0) return null;
+
+    if (this.length === 1) {
+      const returnVal = this.head.val;
+      this.head = null;
+      this.tail = null;
+      this.length--;
+
+      return returnVal;
+    }
+
+    const returnVal = this.head.val;
+
+    this.head = this.head.next;
+    this.head.prev = null;
+    this.length--;
+
+    return returnVal;
+  }
 
   /** getAt(idx): get val at idx.*/
 
