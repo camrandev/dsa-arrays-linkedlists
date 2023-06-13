@@ -75,12 +75,19 @@ class DoublyLinkedList {
   /** pop(): remove last item & return its value */
 
   pop() {
-    //pluck the value of the current tail
-    let val;
-    //set the new tail current tail.prev
-    //decrement the list
+    if (this.length === 0) return null;
 
-    //return the value
+    let val = this.tail.val;
+    this.tail = this.tail.prev;
+
+    //handle case of length = 1
+    if (this.length === 1) {
+      this.head = null;
+    }
+
+    this.length--;
+
+    return val;
   }
 
   /** shift(): remove first item & return its value */
