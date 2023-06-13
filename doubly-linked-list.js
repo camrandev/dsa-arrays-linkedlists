@@ -20,6 +20,7 @@ class DoublyLinkedList {
   /** get(idx) returns a node at the given index */
 
   _get(idx) {
+    if (idx < 0 || idx >= this.length) throw new Error("index out of bounds");
     let counter = 0;
     let curr = this.head;
 
@@ -115,15 +116,46 @@ class DoublyLinkedList {
 
   /** getAt(idx): get val at idx.*/
 
-  getAt(idx) {}
+  getAt(idx) {
+    const targetNode = this._get(idx);
+    return targetNode.val;
+  }
 
   /** setAt(idx, val): set val at idx to val */
 
-  setAt(idx, val) {}
+  setAt(idx, val) {
+    const targetNode = this._get(idx);
+    targetNode.val = val;
+  }
 
   /** insertAt(idx, val): add node w/val before idx. */
 
-  insertAt(idx, val) {}
+  insertAt(idx, val) {
+    const newNode = new Node(val);
+    //handle case of currently empty list
+    if (this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+      this.length++;
+      return;
+    }
+
+    if (this.length === 1) {
+      this.head = newNode;
+      this.head.next = this.tail;
+      this.length++;
+      return;
+    }
+
+    const targetNode = this._get(idx)
+    if  (idx === 0) {
+      this.head = newNode
+      this.head.next = targetNode
+      targetNode.prev = this.head
+      this.length++
+      return;
+    }
+  }
 
   /** removeAt(idx): return & remove item at idx, */
 
