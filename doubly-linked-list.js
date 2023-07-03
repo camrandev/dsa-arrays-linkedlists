@@ -141,6 +141,7 @@ class DoublyLinkedList {
     }
 
     //handle the case of a single item list
+    this.setAt(idx, val)
 
     //handle all other cases
 
