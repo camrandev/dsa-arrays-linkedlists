@@ -20,13 +20,13 @@ class DoublyLinkedList {
   /** get(idx) returns a node at the given index */
 
   _get(idx) {
-    if (idx < 0 || idx > this.length) throw new Error("index out of bounds");
+    if (idx < 0 || idx >= this.length) throw new Error("index out of bounds");
     let counter = 0;
     let curr = this.head;
 
     while (counter != idx) {
-      counter++;
       curr = curr.next;
+      counter++;
     }
 
     return curr;
@@ -131,51 +131,19 @@ class DoublyLinkedList {
   /** insertAt(idx, val): add node w/val before idx. */
 
   insertAt(idx, val) {
-    const targetNode = this._get(idx);
-    const newNode = new Node(val);
+    if (idx < 0 || idx > this.length) throw new Error("index out of bounds");
 
-    //handle case of currently empty list
+    const newNode = new Node(val)
+
+    //handle the case of an empty list
     if (this.length === 0) {
-      this.head = newNode;
-      this.tail = newNode;
-      this.length++;
-      return;
+      this.unshift(val)
     }
 
-    //handmle cass of single node
-    if (this.length === 1) {
-      this.head = newNode;
-      this.head.next = this.tail;
-      this.length++;
-      return;
-    }
+    //handle the case of a single item list
 
-    if (idx === 0) {
-      this.head = newNode;
-      this.head.next = targetNode;
-      targetNode.prev = this.head;
-      this.length++;
-      return;
-    }
+    //handle all other cases
 
-    //oldprev -> new -> target
-    console.log('target node>>>', targetNode, 'idx>>>>', idx)
-    const prev = targetNode.prev;
-
-    prev.next = newNode;
-
-    //old prev
-    //next -> new
-    //new
-    newNode.next = targetNode;
-    newNode.prev = prev;
-    //next -> target
-    //prev -> oldPrev
-    //target
-    targetNode.prev = newNode;
-    this.length++;
-    return;
-    //prev -> new
   }
 
   /** removeAt(idx): return & remove item at idx, */
