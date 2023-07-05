@@ -138,10 +138,17 @@ class DoublyLinkedList {
     //handle the case of an empty list
     if (this.length === 0) {
       this.unshift(val)
+      // this.length++
     }
 
     //handle the case of a single item list
-    this.setAt(idx, val)
+    if (this.length === 1) {
+      if (idx === 0) {
+        this.unshift(val)
+        this.tail = this.head
+
+      }
+    }
 
     //handle all other cases
 
